@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { HomeScreen } from './components/HomeScreen';
 import { HistoryScreen } from './components/HistoryScreen';
 import { PhasesScreen } from './components/PhasesScreen';
@@ -7,13 +8,15 @@ import { LoginScreen } from './components/LoginScreen';
 import { SignUpScreen } from './components/SignUpScreen';
 import { ForgotPasswordScreen } from './components/ForgotPasswordScreen';
 import { LandingPage } from './components/LandingPage';
+import { PrivacyPolicy } from './components/PrivacyPolicy';
+import { AccountDeletion } from './components/AccountDeletion';
 import { BottomNav } from './components/BottomNav';
 
 export type Screen = 'home' | 'history' | 'phases' | 'profile';
 export type AuthScreen = 'login' | 'signup' | 'forgot-password';
 export type AppView = 'landing' | 'auth' | 'app';
 
-export default function App() {
+function MainApp() {
   const [currentView, setCurrentView] = useState<AppView>('landing');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authScreen, setAuthScreen] = useState<AuthScreen>('login');
@@ -78,5 +81,15 @@ export default function App() {
         <BottomNav currentScreen={currentScreen} onNavigate={setCurrentScreen} />
       </div>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<MainApp />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/account-deletion" element={<AccountDeletion />} />
+    </Routes>
   );
 }
